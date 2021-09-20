@@ -22,7 +22,17 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c9533745-9ead-47c5-854b-59957523f653" name="Default Changelist" comment="" />
+    <list default="true" id="c9533745-9ead-47c5-854b-59957523f653" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/test/java/stepdefs/ReadExcelFileDefinitions.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/pages/CreateLessonPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pages/CreateLessonPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/pages/ReadExcelPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pages/ReadExcelPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/stepdefs/LoginDefinitions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/stepdefs/LoginDefinitions.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/test.feature" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/test.feature" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/pages/CreateLessonPage.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/pages/CreateLessonPage.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/pages/ReadExcelPage.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/pages/ReadExcelPage.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/test.feature" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/test.feature" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -88,26 +98,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Scenario: Check Account Page displays successfully" type="CucumberJavaRunConfigurationType" factoryName="Cucumber java" temporary="true" nameIsGenerated="true">
-      <option name="CUCUMBER_CORE_VERSION" value="2" />
-      <option name="FILE_PATH" value="$PROJECT_DIR$/src/test/resources/test.feature" />
-      <option name="GLUE" value="stepdefs" />
-      <option name="MAIN_CLASS_NAME" value="cucumber.api.cli.Main" />
-      <module name="test" />
-      <option name="NAME_FILTER" value="^Check Account Page displays successfully$" />
-      <option name="PROGRAM_PARAMETERS" value=" --plugin org.jetbrains.plugins.cucumber.java.run.CucumberJvm2SMFormatter --monochrome --name &quot;^Check Account Page displays successfully$&quot;" />
-      <option name="SUGGESTED_NAME" value="Scenario: Check Account Page displays successfully" />
-      <option name="WORKING_DIRECTORY" value="$MODULE_WORKING_DIR$" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="cucumber.api.cli.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="Scenario: Enter Courses" type="CucumberJavaRunConfigurationType" factoryName="Cucumber java" temporary="true" nameIsGenerated="true">
       <option name="CUCUMBER_CORE_VERSION" value="2" />
       <option name="FILE_PATH" value="$PROJECT_DIR$/src/test/resources/test.feature" />
@@ -124,6 +114,23 @@
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="LoginTest" type="TestNG" temporary="true" nameIsGenerated="true">
+      <module name="test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="testCases.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="testCases" />
+      <option name="MAIN_CLASS_NAME" value="testCases.LoginTest" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <properties />
+      <listeners />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -166,14 +173,15 @@
     </configuration>
     <list>
       <item itemvalue="Cucumber Java.Feature: test" />
-      <item itemvalue="Cucumber Java.Scenario: Check Account Page displays successfully" />
       <item itemvalue="Cucumber Java.Scenario: Enter Courses" />
       <item itemvalue="TestNG.LoginTest.testRegistration" />
       <item itemvalue="TestNG.MyAccountTest.TestMyAccountEditPassword" />
+      <item itemvalue="TestNG.LoginTest" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Cucumber Java.Feature: test" />
+        <item itemvalue="TestNG.LoginTest" />
         <item itemvalue="TestNG.LoginTest.testRegistration" />
         <item itemvalue="TestNG.MyAccountTest.TestMyAccountEditPassword" />
       </list>

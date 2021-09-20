@@ -4,6 +4,11 @@ import pages.LoginPage;
 
 import static driver.HookSteps.getDriver;
 
+//Then I click create a new course
+//        Then I create new course
+//        Then I go to lesson page - Will be modified
+//        Then I create lesson
+
 public class LoginDefinitions {
 
     LoginPage loginPage;

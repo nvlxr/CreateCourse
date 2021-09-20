@@ -6,6 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static driver.HookSteps.getDriver;
@@ -38,14 +39,14 @@ public class CreateLessonPage {
     @FindBy (xpath = "(//span[normalize-space(text()) = 'Select'])[3]//..//..") WebElement btnSelectLessonTag;
     @FindBy (css = ".el-switch__core") WebElement toggleBatchCreate;
     @FindBy (xpath = "(//div[@class='el-dialog__wrapper eeo-el-dialog' and not(@style=\"display: none;\")])[2]/div/div[@class='el-dialog__body']/form/div[@class='el-form-item el-form-item--mini'][1]/div/div[@class='el-input el-input--mini']/input") WebElement txtLessonNumber;
-    @FindBy (xpath = "//*[text()='Sunday']") WebElement btnSunday;
-    @FindBy (xpath = "(//*[text()='Monday'])[2]") WebElement btnMonday;
-    @FindBy (xpath = "(//*[text()='Tuesday'])") WebElement btnTuesday;
-    @FindBy (xpath = "(//*[text()='Wednesday'])") WebElement btnWednesday;
-    @FindBy (xpath = "(//*[text()='Thursday'])") WebElement btnThursday;
-    @FindBy (xpath = "(//*[text()='Friday'])") WebElement btnFriday;
-    @FindBy (xpath = "(//*[text()='Saturday'])") WebElement btnSaturday;
-    public void createLesson(String startDate,String lessonTag, String weekDates, String lessonNumber, String lessonHour,String lessonMinute, String durationHour, String durationMinute, String teacherName)
+    @FindBy (xpath = "//*[contains(text(),\"Week's Law\")]//../div/div/label[1]") WebElement btnSunday;
+    @FindBy (xpath = "//*[contains(text(),\"Week's Law\")]//../div/div/label[2]") WebElement btnMonday;
+    @FindBy (xpath = "//*[contains(text(),\"Week's Law\")]//../div/div/label[3]") WebElement btnTuesday;
+    @FindBy (xpath = "//*[contains(text(),\"Week's Law\")]//../div/div/label[4]") WebElement btnWednesday;
+    @FindBy (xpath = "//*[contains(text(),\"Week's Law\")]//../div/div/label[5]") WebElement btnThursday;
+    @FindBy (xpath = "//*[contains(text(),\"Week's Law\")]//../div/div/label[6]") WebElement btnFriday;
+    @FindBy (xpath = "//*[contains(text(),\"Week's Law\")]//../div/div/label[7]") WebElement btnSaturday;
+    public void createLesson(String startDate,String lessonTag, String weekLaws, String lessonNumber, String lessonHour,String lessonMinute, String durationHour, String durationMinute, String teacherName)
     {
         try {
             Thread.sleep(3000);
@@ -76,13 +77,50 @@ public class CreateLessonPage {
         //Select Duration Minute
         selectDurationMinute(durationMinute);
         //Select week's Law
-        selectWeekLaw(weekDates);
+        selectWeekLaw(weekLaws);
         //Select Teacher
         selectTeacher(teacherName);
         //Select Lesson Tag
         selectLessonTag(lessonTag);
         // Close create lesson dialog
         //btnDoneCloseCreateLessonDialog.click();//now not click because of create real data on PROD
+        //Close current tab and back to Create Course button tab
+        //switchToFirstTab();
+    }
+    public void uncheckCheckedDate() {
+
+        //Remove Read Only Attribute of Start Date
+        //WebElement elementName = btnSunday;
+        String Sunday = btnSunday.getAttribute("aria-checked");
+        String Monday = btnMonday.getAttribute("aria-checked");
+        String Tuesday = btnTuesday.getAttribute("aria-checked");
+        String Wednesday = btnWednesday.getAttribute("aria-checked");
+        String Thursday = btnThursday.getAttribute("aria-checked");
+        String Friday = btnFriday.getAttribute("aria-checked");
+        String Saturday = btnSaturday.getAttribute("aria-checked");
+        if(Sunday != null) {
+            btnSunday.click();
+        }
+        if(Monday != null) {
+            btnMonday.click();
+        }
+        if(Tuesday != null) {
+            btnTuesday.click();
+        }
+        if(Wednesday != null) {
+            btnWednesday.click();
+        }
+        if(Thursday != null) {
+            btnThursday.click();
+        }
+        if(Friday != null) {
+            btnFriday.click();
+        }
+        if(Saturday != null) {
+            btnSaturday.click();
+        }
+
+
     }
     public void enterStartDate(String startDate) {
 
@@ -119,15 +157,9 @@ public class CreateLessonPage {
     }
     public void selectMinute(String lessonMinute) {
 
-//        try {
-//            Thread.sleep(1500);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
         for (int i = 0; i < minuteList.size(); i++) {
             int j=i+1;
             String minute = minuteList.get(i).findElement(By.xpath("(//*[@class='eeo-ul options minute eeo-scroll-bar']//li)["+j+"]")).getText();
-            //System.out.println("minute number "+i+": "+minute+"\n");
             if (minute.trim().equalsIgnoreCase(lessonMinute)) {
                 System.out.println("Selected minute: " + minute);
                 minuteList.get(i).click();
@@ -139,11 +171,6 @@ public class CreateLessonPage {
     }
     public void selectDurationHour(String durationHourInput) {
 
-//        try {
-//            Thread.sleep(1500);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
         WebElement elementName = driver.findElement(By.xpath("//input[@placeholder='hour']"));
         ((JavascriptExecutor) driver).executeScript("arguments[0].removeAttribute('readonly','readonly')", elementName);
         System.out.println("Removed Read Only attribute of Duration Hour successfully");
@@ -152,7 +179,6 @@ public class CreateLessonPage {
         for (int i = 0; i < durationHourAndMinuteList.size(); i++) {
             int j=i+1;
             String durationHour = durationHourAndMinuteList.get(i).findElement(By.xpath("(//*[@class='el-scrollbar__view el-select-dropdown__list'])[8]//li["+j+"]")).getText();
-            //System.out.println("hour number "+i+": "+durationHour+"\n");
             if (durationHour.trim().equalsIgnoreCase(durationHourInput)) {
                 System.out.println("Selected hour: " + durationHour);
                 durationHourAndMinuteList.get(i).click();
@@ -172,7 +198,6 @@ public class CreateLessonPage {
         for (int i = 0; i < durationHourAndMinuteList.size(); i++) {
             int j=i+1;
             String durationMinute = durationHourAndMinuteList.get(i).findElement(By.xpath("(//*[@class='el-scrollbar__view el-select-dropdown__list'])[8]//li["+j+"]")).getText();
-            //System.out.println("minute number "+i+": "+durationMinute+"\n");
             if (durationMinute.trim().equalsIgnoreCase(durationHourInput)) {
                 System.out.println("Selected minute: " + durationMinute);
                 durationHourAndMinuteList.get(i).click();
@@ -187,8 +212,9 @@ public class CreateLessonPage {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        btnSunday.click();
-        System.out.println("Unchecked default Sunday");
+        //btnSunday.click();
+        uncheckCheckedDate();
+        System.out.println("Unchecked default day");
         int n =weekDate.length();
         for(int i=0;i<n;i++)
         {
@@ -229,13 +255,12 @@ public class CreateLessonPage {
         btnSelectLessonTag.click();
         //Wait popup show completely
         try {
-            Thread.sleep(900);
+            Thread.sleep(500);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
         selectCourseAndLessonTagPage = new SelectCourseAndLessonTagPage(getDriver());
         selectCourseAndLessonTagPage.selectCourseAndLessonTag("lesson", lessonTag);
-        //Click Done
         //wait pop-up close completely
         try {
             Thread.sleep(500);
@@ -243,6 +268,13 @@ public class CreateLessonPage {
             e.printStackTrace();
         }
 
+    }
+    public void switchToFirstTab()
+    {
+        ArrayList<String> tabs = new ArrayList<String> (driver.getWindowHandles());
+        driver.close();
+        driver.switchTo().window(tabs.get(0));
+        System.out.println("Switch to first tab successfully");
     }
 
 
