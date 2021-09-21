@@ -10,6 +10,7 @@ public class ReadExcelPage {
     CoursesPage coursesPage;
     CreateNewCoursePage createNewCoursePage;
     CreateLessonPage createLessonPage;
+    writeReportFilePage writeReportFilePage;
     WebDriver driver;
     //https://www.youtube.com/watch?v=0yBJseqPM-w
     public ReadExcelPage(WebDriver driver) {
@@ -19,15 +20,21 @@ public class ReadExcelPage {
         coursesPage = new CoursesPage(getDriver());
         createNewCoursePage = new CreateNewCoursePage(getDriver());
         createLessonPage = new CreateLessonPage(getDriver());
+        writeReportFilePage = new writeReportFilePage();
+        String failedRow="Failed row: ";
+        String failedData="Course Name,Course Advisor,Course Tag,Course Date,Lesson Number,Lesson Start Date,Lesson Start Time,Duration,Week's Law,Teacher,Lesson Tag\n";
         CSVReader reader = new CSVReader(new FileReader("C://test.csv"));
         String csvCell[];
-        int currentLine = 0;
+
+        int firstLine =0;
+        int printOutLine = firstLine+1;
         while((csvCell=reader.readNext())!= null)
         {
             //Skip title row
-            if(currentLine==0)
+            if(firstLine==0)
             {
-                currentLine++;
+                firstLine++;
+                printOutLine++;
                 continue;
             }
             //Get Data
@@ -53,11 +60,33 @@ public class ReadExcelPage {
             String lessonTag = csvCell[10];
             // Create new course
             coursesPage.clickCreateCourse();
-            createNewCoursePage.createNewCourse(courseName,courseDate,courseTag,courseAdvisor);
-            createNewCoursePage.goToLessonPage();
+            if(createNewCoursePage.createNewCourse(courseName,courseDate,courseTag,courseAdvisor)==false)
+            {
+                System.out.println("Failed to create course at row: "+printOutLine+"\n");
+                failedRow=failedRow+printOutLine+", ";
+                createLessonPage.switchToFirstTab();
+                printOutLine++;
+                failedData=failedData+courseName+","+courseAdvisor+","+courseTag+","+courseDate+","+lessonNumber+","+lessonStartDate+","+lessonStartTime+","+lessonDuration+","+lessonWeeksLaw+","+lessonTeacher+","+lessonTag+"\n";
+                continue;
+            }
+            else
+                System.out.println("Done course no.: "+printOutLine+"\n");
+            //createNewCoursePage.goToLessonPage();
             //Create new lesson
-            createLessonPage.createLesson(lessonStartDate,lessonTag,lessonWeeksLaw,lessonNumber,lessonStartTimeHour,lessonStartTimeMinute,lessonDurationHour,lessonDurationMinute,lessonTeacher);
-            System.out.println("Done course no.: "+currentLine+"\n");
+            if(createLessonPage.createLesson(lessonStartDate,lessonTag,lessonWeeksLaw,lessonNumber,lessonStartTimeHour,lessonStartTimeMinute,lessonDurationHour,lessonDurationMinute,lessonTeacher)==false)
+            {
+                System.out.println("Failed to create the lesson/course at row: "+printOutLine+"\n");
+                failedRow=failedRow+printOutLine+", ";
+                createLessonPage.switchToFirstTab();
+                printOutLine++;
+                failedData=failedData+courseName+","+courseAdvisor+","+courseTag+","+courseDate+","+lessonNumber+","+lessonStartDate+","+lessonStartTime+","+lessonDuration+","+lessonWeeksLaw+","+lessonTeacher+","+lessonTag+"\n";
+                continue;
+            }
+            else
+                System.out.println("Done course no.: "+printOutLine+"\n");
+            printOutLine++;
         }
+        System.out.println(failedRow);
+        writeReportFilePage.writeReportFile(failedRow,failedData);
     }
 }

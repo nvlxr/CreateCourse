@@ -46,46 +46,53 @@ public class CreateLessonPage {
     @FindBy (xpath = "//*[contains(text(),\"Week's Law\")]//../div/div/label[5]") WebElement btnThursday;
     @FindBy (xpath = "//*[contains(text(),\"Week's Law\")]//../div/div/label[6]") WebElement btnFriday;
     @FindBy (xpath = "//*[contains(text(),\"Week's Law\")]//../div/div/label[7]") WebElement btnSaturday;
-    public void createLesson(String startDate,String lessonTag, String weekLaws, String lessonNumber, String lessonHour,String lessonMinute, String durationHour, String durationMinute, String teacherName)
+
+    public boolean createLesson(String startDate,String lessonTag, String weekLaws, String lessonNumber, String lessonHour,String lessonMinute, String durationHour, String durationMinute, String teacherName)
     {
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        try
+        {
+            try {
+                Thread.sleep(3000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            btnCreateLessons.click();
+            //Wait pop-up show successfully
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            //Next step
+            //Turn on Batch Create
+            toggleBatchCreate.click();
+            //Enter lesson number
+            txtLessonNumber.clear();
+            txtLessonNumber.sendKeys(lessonNumber);
+            //Enter StartDate
+            enterStartDate(startDate);
+            //Select Time: hour
+            selectHour(lessonHour);
+            //Select Time: minute
+            selectMinute(lessonMinute);
+            //Select Duration Hour
+            selectDurationHour(durationHour);
+            //Select Duration Minute
+            selectDurationMinute(durationMinute);
+            //Select week's Law
+            selectWeekLaw(weekLaws);
+            //Select Teacher
+            selectTeacher(teacherName);
+            //Select Lesson Tag
+            selectLessonTag(lessonTag);
+            // Close create lesson dialog
+            //btnDoneCloseCreateLessonDialog.click();//now not click because of create real data on PROD
+            //Close current tab and back to Create Course button tab
+            //switchToFirstTab();
+            return true;
         }
-        btnCreateLessons.click();
-        //Wait pop-up show successfully
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        //Next step
-        //Turn on Batch Create
-        toggleBatchCreate.click();
-        //Enter lesson number
-        txtLessonNumber.clear();
-        txtLessonNumber.sendKeys(lessonNumber);
-        //Enter StartDate
-        enterStartDate(startDate);
-        //Select Time: hour
-        selectHour(lessonHour);
-        //Select Time: minute
-        selectMinute(lessonMinute);
-        //Select Duration Hour
-        selectDurationHour(durationHour);
-        //Select Duration Minute
-        selectDurationMinute(durationMinute);
-        //Select week's Law
-        selectWeekLaw(weekLaws);
-        //Select Teacher
-        selectTeacher(teacherName);
-        //Select Lesson Tag
-        selectLessonTag(lessonTag);
-        // Close create lesson dialog
-        //btnDoneCloseCreateLessonDialog.click();//now not click because of create real data on PROD
-        //Close current tab and back to Create Course button tab
-        //switchToFirstTab();
+        catch (Exception e)
+        {return false;}
     }
     public void uncheckCheckedDate() {
 
@@ -276,6 +283,11 @@ public class CreateLessonPage {
         driver.switchTo().window(tabs.get(0));
         System.out.println("Switch to first tab successfully");
     }
+    public boolean checkIfThisPageIsAvailable() {
+        if (driver.findElements(By.xpath("//span[normalize-space(text()) = 'Create Lessons']")).size() != 0)
+            return true;
+        else
+            return false;
 
-
-}
+    }
+    }

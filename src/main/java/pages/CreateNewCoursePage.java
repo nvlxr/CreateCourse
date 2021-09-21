@@ -22,32 +22,39 @@ public class CreateNewCoursePage {
     @FindBy (xpath = "(//button[@class='el-button el-button--primary el-button--mini'])[4]") WebElement btnDoneSelectCourseTag;
     @FindBy (xpath = "(//*[contains(@class,'el-checkbox__inner')])[2]") WebElement chkBoxAllowClass;
     @FindBy (xpath = "(//*[contains(@class,'el-input__inner')])[3]") WebElement txtCalendar;
+    @FindBy (xpath = "//span[normalize-space(text()) = 'Create Immediately']") WebElement btnCreateCourse;
     public CreateNewCoursePage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
     }
-    public void createNewCourse(String courseName, String courseDate, String courseTag, String advisorName)
+    public boolean createNewCourse(String courseName, String courseDate, String courseTag, String advisorName)
     {
-        //Switch to new opened tab
-        switchToNewTab();
-        //Enter Course name
-        enterCourseName(courseName);
-        //Select Course Advisor
-        clickSelectAdvisorButton();//Open Select Advisor popup
-        waitUntilAdvisorPopUpReady();
-        selectAdvisorPage = new SelectAdvisorPage(getDriver());
-        selectAdvisorPage.selectAdvisorOrTeacher(advisorName);
-        //Select Course Tag
-        selectCourseTag(courseTag);
-        //Enter Date
-        enterDateToCalendarBox(courseDate);
-        //Uncheck the "Allow class..." checkbox
-        uncheckAllowClassCheckbox();
+        try{
+            //Switch to new opened tab
+            switchToNewTab();
+            //Enter Course name
+            enterCourseName(courseName);
+            //Select Course Advisor
+            clickSelectAdvisorButton();//Open Select Advisor popup
+            waitUntilAdvisorPopUpReady();
+            selectAdvisorPage = new SelectAdvisorPage(getDriver());
+            selectAdvisorPage.selectAdvisorOrTeacher(advisorName);
+            selectAdvisorPage.btnDoneOneActiveDialog.click();
 
-
-
-
+            //Select Course Tag
+            selectCourseTag(courseTag);
+            //Enter Date
+            enterDateToCalendarBox(courseDate);
+            //Uncheck the "Allow class..." checkbox
+            uncheckAllowClassCheckbox();
+            //Click this button to create course
+            //btnCreateCourse.click();
+            return true;
+        }
+        catch (Exception e)
+        {return false;}
     }
+
     //Switch to new opened tab
     public void switchToNewTab()
     {
@@ -72,24 +79,23 @@ public class CreateNewCoursePage {
     }
     public void selectCourseTag( String courseTag)
     {
-
-        //Open select course tag pop-up
-        btnCourseTag.click();
-        //wait pop-up show completely
-        try {
-            Thread.sleep(900);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        //Check the checkbox
-        selectCourseAndLessonTagPage = new SelectCourseAndLessonTagPage(getDriver());
-        selectCourseAndLessonTagPage.selectCourseAndLessonTag("course", courseTag);
-        //wait pop-up close completely
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+            //Open select course tag pop-up
+            btnCourseTag.click();
+            //wait pop-up show completely
+            try {
+                Thread.sleep(900);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            //Check the checkbox
+            selectCourseAndLessonTagPage = new SelectCourseAndLessonTagPage(getDriver());
+            selectCourseAndLessonTagPage.selectCourseAndLessonTag("course", courseTag);
+            //wait pop-up close completely
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
     }
     public void uncheckAllowClassCheckbox()
     {
