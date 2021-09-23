@@ -24,15 +24,13 @@
   <component name="ChangeListManager">
     <list default="true" id="c9533745-9ead-47c5-854b-59957523f653" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/pages/CoursesPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pages/CoursesPage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/pages/CreateLessonPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pages/CreateLessonPage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/pages/CreateNewCoursePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pages/CreateNewCoursePage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/pages/LandingPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pages/LandingPage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/pages/ReadExcelPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pages/ReadExcelPage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/pages/basePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pages/writeReportFilePage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/pages/CreateLessonPage.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/pages/CreateLessonPage.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/pages/CreateNewCoursePage.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/pages/CreateNewCoursePage.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/pages/SelectAdvisorPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pages/SelectAdvisorPage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/pages/ReadExcelPage.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/pages/ReadExcelPage.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/stepdefs/CreateLessonPageDefinitions.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/stepdefs/CreateLessonPageDefinitions.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/stepdefs/CreateNewCoursePageDefinitions.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/stepdefs/CreateNewCoursePageDefinitions.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

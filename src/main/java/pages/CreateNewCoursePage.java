@@ -29,7 +29,7 @@ public class CreateNewCoursePage {
     }
     public boolean createNewCourse(String courseName, String courseDate, String courseTag, String advisorName)
     {
-        try{
+        //try{
             //Switch to new opened tab
             switchToNewTab();
             //Enter Course name
@@ -39,7 +39,7 @@ public class CreateNewCoursePage {
             waitUntilAdvisorPopUpReady();
             selectAdvisorPage = new SelectAdvisorPage(getDriver());
             selectAdvisorPage.selectAdvisorOrTeacher(advisorName);
-            selectAdvisorPage.btnDoneOneActiveDialog.click();
+            //selectAdvisorPage.btnDoneCloseSelectCourseAdvisor.click();//Why duplicate this here?
 
             //Select Course Tag
             selectCourseTag(courseTag);
@@ -47,12 +47,12 @@ public class CreateNewCoursePage {
             enterDateToCalendarBox(courseDate);
             //Uncheck the "Allow class..." checkbox
             uncheckAllowClassCheckbox();
-            //Click this button to create course
+            //Click btnCreateCourse button to create course
             //btnCreateCourse.click();
             return true;
-        }
-        catch (Exception e)
-        {return false;}
+        //}
+        //catch (Exception e)
+        //{return false;}
     }
 
     //Switch to new opened tab

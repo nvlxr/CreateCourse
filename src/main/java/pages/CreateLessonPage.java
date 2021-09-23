@@ -88,7 +88,7 @@ public class CreateLessonPage {
             // Close create lesson dialog
             //btnDoneCloseCreateLessonDialog.click();//now not click because of create real data on PROD
             //Close current tab and back to Create Course button tab
-            //switchToFirstTab();
+            switchToFirstTab();
             return true;
         }
         catch (Exception e)

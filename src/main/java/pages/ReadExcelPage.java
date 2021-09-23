@@ -23,7 +23,7 @@ public class ReadExcelPage {
         writeReportFilePage = new writeReportFilePage();
         String failedRow="Failed row: ";
         String failedData="Course Name,Course Advisor,Course Tag,Course Date,Lesson Number,Lesson Start Date,Lesson Start Time,Duration,Week's Law,Teacher,Lesson Tag\n";
-        CSVReader reader = new CSVReader(new FileReader("C://test.csv"));
+        CSVReader reader = new CSVReader(new FileReader("C:\\Users\\thang.phan\\Desktop\\test.csv"));
         String csvCell[];
 
         int firstLine =0;
@@ -64,26 +64,26 @@ public class ReadExcelPage {
             {
                 System.out.println("Failed to create course at row: "+printOutLine+"\n");
                 failedRow=failedRow+printOutLine+", ";
-                createLessonPage.switchToFirstTab();
+                createLessonPage.switchToFirstTab();//If create current course failed. Go back to first tab to create next course
                 printOutLine++;
                 failedData=failedData+courseName+","+courseAdvisor+","+courseTag+","+courseDate+","+lessonNumber+","+lessonStartDate+","+lessonStartTime+","+lessonDuration+","+lessonWeeksLaw+","+lessonTeacher+","+lessonTag+"\n";
                 continue;
             }
             else
-                System.out.println("Done course no.: "+printOutLine+"\n");
-            //createNewCoursePage.goToLessonPage();
+                System.out.println("Created course at row: "+printOutLine+"\n");
+            createNewCoursePage.goToLessonPage();
             //Create new lesson
             if(createLessonPage.createLesson(lessonStartDate,lessonTag,lessonWeeksLaw,lessonNumber,lessonStartTimeHour,lessonStartTimeMinute,lessonDurationHour,lessonDurationMinute,lessonTeacher)==false)
             {
                 System.out.println("Failed to create the lesson/course at row: "+printOutLine+"\n");
                 failedRow=failedRow+printOutLine+", ";
-                createLessonPage.switchToFirstTab();
+                createLessonPage.switchToFirstTab();//If create lesson of current course failed. Go back to first tab to create next course
                 printOutLine++;
                 failedData=failedData+courseName+","+courseAdvisor+","+courseTag+","+courseDate+","+lessonNumber+","+lessonStartDate+","+lessonStartTime+","+lessonDuration+","+lessonWeeksLaw+","+lessonTeacher+","+lessonTag+"\n";
                 continue;
             }
             else
-                System.out.println("Done course no.: "+printOutLine+"\n");
+                System.out.println("Created lesson at row: "+printOutLine+"\n");
             printOutLine++;
         }
         System.out.println(failedRow);
