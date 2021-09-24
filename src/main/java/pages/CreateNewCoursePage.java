@@ -13,6 +13,7 @@ public class CreateNewCoursePage {
     WebDriver driver;
     SelectCourseAndLessonTagPage selectCourseAndLessonTagPage;
     SelectAdvisorPage selectAdvisorPage;
+    WaitUntilElementClickable waitUntilElementClickable;
     @FindBy (xpath = "//input[@placeholder=\"Please enter the Lesson Name\"]") WebElement txtCourseName;
     @FindBy (xpath = "//*[contains(@class,'eeo_schoolBatchMemberSelectBtn')]") WebElement btnSelectAdvisor;
     @FindBy (xpath = "(//button[contains(@class,'el-button el-button--primary el-button--mini')])[3]") WebElement btnCourseTag;
@@ -23,9 +24,11 @@ public class CreateNewCoursePage {
     @FindBy (xpath = "(//*[contains(@class,'el-checkbox__inner')])[2]") WebElement chkBoxAllowClass;
     @FindBy (xpath = "(//*[contains(@class,'el-input__inner')])[3]") WebElement txtCalendar;
     @FindBy (xpath = "//span[normalize-space(text()) = 'Create Immediately']") WebElement btnCreateCourse;
+    @FindBy (xpath = "//div[@class='siteLoading']") WebElement mask;
     public CreateNewCoursePage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
+        waitUntilElementClickable = new WaitUntilElementClickable(getDriver());
     }
     public boolean createNewCourse(String courseName, String courseDate, String courseTag, String advisorName)
     {
@@ -70,6 +73,10 @@ public class CreateNewCoursePage {
 //        } catch (InterruptedException e) {
 //            e.printStackTrace();
 //        }
+        if(driver.findElements(By.xpath("//div[@class='siteLoading']")).size()!=0) {
+            waitUntilElementClickable.waitUntilElementClickable(chkBoxAllowClass, mask);
+            System.out.println("Yes I removed MASK >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+        }
         txtCourseName.sendKeys(courseName);
         System.out.println("Enter course name successfully");
     }
@@ -83,7 +90,7 @@ public class CreateNewCoursePage {
             btnCourseTag.click();
             //wait pop-up show completely
             try {
-                Thread.sleep(900);
+                Thread.sleep(500);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -117,11 +124,11 @@ public class CreateNewCoursePage {
         driver.navigate().to("https://console.classin.com/saas/school/index.html#/SinglePage/CourseManagement/CourseLessonManagement?courseId=179568067");
         System.out.println("Navigated to Lesson page");
         //Wait new page load successfully
-        try {
-            Thread.sleep(1500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            Thread.sleep(1500);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
     }
     public void waitUntilAdvisorPopUpReady()
     {

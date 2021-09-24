@@ -5,16 +5,14 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import static driver.HookSteps.getDriver;
-
 public class CreateLessonPage {
     WebDriver driver;
     SelectAdvisorPage selectAdvisorPage;
     SelectCourseAndLessonTagPage selectCourseAndLessonTagPage;
+    WaitUntilElementClickable waitUntilElementClickable;
     public CreateLessonPage(WebDriver driver)
     {
         this.driver = driver;
@@ -46,16 +44,18 @@ public class CreateLessonPage {
     @FindBy (xpath = "//*[contains(text(),\"Week's Law\")]//../div/div/label[5]") WebElement btnThursday;
     @FindBy (xpath = "//*[contains(text(),\"Week's Law\")]//../div/div/label[6]") WebElement btnFriday;
     @FindBy (xpath = "//*[contains(text(),\"Week's Law\")]//../div/div/label[7]") WebElement btnSaturday;
+    @FindBy (xpath = "//div[@class='el-loading-mask']") WebElement mask;
 
     public boolean createLesson(String startDate,String lessonTag, String weekLaws, String lessonNumber, String lessonHour,String lessonMinute, String durationHour, String durationMinute, String teacherName)
     {
         try
         {
-            try {
-                Thread.sleep(3000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+//            try {
+//                Thread.sleep(3000);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+            waitUntilElementClickable.waitUntilElementClickable(btnCreateLessons,mask);
             btnCreateLessons.click();
             //Wait pop-up show successfully
             try {
