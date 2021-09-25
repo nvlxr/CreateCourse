@@ -5,6 +5,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
 import java.util.ArrayList;
 import java.util.List;
 import static driver.HookSteps.getDriver;
@@ -17,6 +20,7 @@ public class CreateLessonPage {
     {
         this.driver = driver;
         PageFactory.initElements(driver, this);
+        waitUntilElementClickable = new WaitUntilElementClickable(getDriver());
     }
     @FindBy (xpath = "//span[normalize-space(text()) = 'Create Lessons']") WebElement btnCreateLessons;
     @FindBy (xpath = "//label[text()='Start Date']//../div[@class='el-form-item__content']/div[@class='eeo_dateDaySelectInput']/div/input") WebElement txtStartDate;
@@ -44,19 +48,36 @@ public class CreateLessonPage {
     @FindBy (xpath = "//*[contains(text(),\"Week's Law\")]//../div/div/label[5]") WebElement btnThursday;
     @FindBy (xpath = "//*[contains(text(),\"Week's Law\")]//../div/div/label[6]") WebElement btnFriday;
     @FindBy (xpath = "//*[contains(text(),\"Week's Law\")]//../div/div/label[7]") WebElement btnSaturday;
-    @FindBy (xpath = "//div[@class='el-loading-mask']") WebElement mask;
+    //@FindBy (xpath = "//div[@class='el-loading-mask']") WebElement mask;
+    @FindBy (xpath = "//div[@class='el-loading-spinner']") WebElement mask;
 
     public boolean createLesson(String startDate,String lessonTag, String weekLaws, String lessonNumber, String lessonHour,String lessonMinute, String durationHour, String durationMinute, String teacherName)
     {
-        try
-        {
+//        try
+//        {
 //            try {
 //                Thread.sleep(3000);
 //            } catch (InterruptedException e) {
 //                e.printStackTrace();
 //            }
-            waitUntilElementClickable.waitUntilElementClickable(btnCreateLessons,mask);
-            btnCreateLessons.click();
+//            if(driver.findElements(By.xpath("//div[@class='siteLoading']")).size()!=0||driver.findElements(By.xpath("//div[@class='el-loading-spinner']")).size()!=0) {
+//                waitUntilElementClickable.waitUntilElementClickable(btnCreateLessons, mask);
+//                System.out.println("Yes MASK is present >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+//            }
+//            else
+//            {
+//                try {
+//                    Thread.sleep(1000);
+//                }   catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+
+        WebDriverWait wait = new WebDriverWait(driver,155);
+        WebElement el = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[normalize-space(text()) = 'Create Lessons']")));
+        ((JavascriptExecutor)driver).executeScript("arguments[0].click()", el);
+        //btnCreateLessons.click();
+
             //Wait pop-up show successfully
             try {
                 Thread.sleep(500);
@@ -90,9 +111,9 @@ public class CreateLessonPage {
             //Close current tab and back to Create Course button tab
             switchToFirstTab();
             return true;
-        }
-        catch (Exception e)
-        {return false;}
+//        }
+//        catch (Exception e)
+//        {return false;}
     }
     public void uncheckCheckedDate() {
 

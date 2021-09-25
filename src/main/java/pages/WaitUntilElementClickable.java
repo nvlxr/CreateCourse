@@ -1,5 +1,7 @@
 package pages;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -19,4 +21,5 @@ public class WaitUntilElementClickable {
         WebDriverWait wait = new WebDriverWait(driver,155);
         wait.until(ExpectedConditions.and(ExpectedConditions.elementToBeClickable(elementNeedToCheck),ExpectedConditions.invisibilityOf(mask)));
     }
+
 }

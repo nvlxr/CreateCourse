@@ -72,11 +72,9 @@ public class CreateNewCoursePage {
 //            Thread.sleep(1600);
 //        } catch (InterruptedException e) {
 //            e.printStackTrace();
-//        }
-        if(driver.findElements(By.xpath("//div[@class='siteLoading']")).size()!=0) {
-            waitUntilElementClickable.waitUntilElementClickable(chkBoxAllowClass, mask);
-            System.out.println("Yes I removed MASK >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-        }
+//        }//div[@class='el-loading-spinner']
+        if(driver.findElements(By.xpath("//div[@class='siteLoading']")).size()!=0||driver.findElements(By.xpath("//div[@class='el-loading-spinner']")).size()!=0)
+            waitUntilElementClickable.waitUntilElementClickable(chkBoxAllowClass,mask);
         txtCourseName.sendKeys(courseName);
         System.out.println("Enter course name successfully");
     }

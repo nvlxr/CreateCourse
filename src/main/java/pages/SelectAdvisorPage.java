@@ -21,9 +21,8 @@ public class SelectAdvisorPage {
     List<WebElement> advisorList;
     String xpathCheckIfTwoDialogIsDisplaying ="//div[@class='el-dialog__wrapper eeo-el-dialog schoolMemberBatchSelectDialog' and not(@style=\"display: none;\")]";
     @FindBy (xpath = "//div[@class='el-dialog__wrapper eeo-el-dialog schoolMemberBatchSelectDialog']/div/div[@class='el-dialog__footer']/div/div[2]/button[1]") WebElement btnDoneCloseSelectCourseAdvisor;
-    @FindBy (xpath = "(//div[@class='el-dialog__wrapper eeo-el-dialog schoolMemberBatchSelectDialog' and not(@style=\"display: none;\")])[2]/div/div[@class='el-dialog__footer']/div/div[@class='eeo_buttonGroup_dialogFooter']/button[@class='el-button el-button--primary el-button--mini']") WebElement btnDoneTowActiveDialogs;
+    @FindBy (xpath = "(//div[@class='el-dialog__wrapper eeo-el-dialog schoolMemberBatchSelectDialog' and not(@style=\"display: none;\")])[2]/div/div[@class='el-dialog__footer']/div/div[@class='eeo_buttonGroup_dialogFooter']/button[@class='el-button el-button--primary el-button--mini']") WebElement btnDoneCloseSelectLessonTeacher;
     @FindBy (xpath = "//div[@class='el-loading-mask']") WebElement mask;
-
     public void selectAdvisorOrTeacher(String advisorTeacherName)
     {
         try {
@@ -41,7 +40,7 @@ public class SelectAdvisorPage {
             }
         }
         if(driver.findElements( By.xpath(xpathCheckIfTwoDialogIsDisplaying) ).size() > 1)
-            btnDoneTowActiveDialogs.click();
+            btnDoneCloseSelectLessonTeacher.click();
         else
             btnDoneCloseSelectCourseAdvisor.click();
         //Wait to close the pop-up successfully

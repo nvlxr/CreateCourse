@@ -18,6 +18,7 @@ public class SelectCourseAndLessonTagPage {
     @FindBy (xpath = "(//div[@class='tagName'])[2]//../div[@class='checkboxBox']/div[@class='el-checkbox']") WebElement chkBoxProduction;
     @FindBy (xpath = "//span[normalize-space(text()) = 'Selected tags:1/2' or normalize-space(text()) = 'Selected tags:0/2']//..//..//../div[@class='el-dialog__footer']/div/div[@class='eeo_buttonGroup_dialogFooter']/button[@class='el-button el-button--primary el-button--mini']") WebElement btnDone;
     @FindBy (xpath = "//div[@class='el-loading-mask']") WebElement mask;
+
     public void selectCourseAndLessonTag( String type, String courseLessonTag)
     {
         //wait the pop-up show completely
