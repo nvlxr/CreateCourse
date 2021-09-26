@@ -27,8 +27,6 @@
       <change beforePath="$PROJECT_DIR$/src/main/java/pages/CreateLessonPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pages/CreateLessonPage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/pages/CreateNewCoursePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pages/CreateNewCoursePage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/pages/SelectAdvisorPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pages/SelectAdvisorPage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/pages/SelectCourseAndLessonTagPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pages/SelectCourseAndLessonTagPage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/pages/WaitUntilElementClickable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pages/WaitUntilElementClickable.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/pages/CreateLessonPage.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/pages/CreateLessonPage.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/pages/CreateNewCoursePage.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/pages/CreateNewCoursePage.class" afterDir="false" />
     </list>

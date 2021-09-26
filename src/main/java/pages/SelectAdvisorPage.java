@@ -4,6 +4,10 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
 import static driver.HookSteps.getDriver;
 import java.util.List;
 
@@ -30,6 +34,25 @@ public class SelectAdvisorPage {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
+        //Wait if the mask is shown
+        if(driver.findElements(By.xpath("//div[@class='el-loading-mask']")).size()!=0||driver.findElements(By.xpath("//div[@class='el-loading-spinner']")).size()!=0)
+        {
+            WebDriverWait wait = new WebDriverWait(driver,155);
+            //wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//div[@class='el-loading-mask']")));
+            wait.until(new ExpectedCondition<Boolean>() {
+                public Boolean apply(WebDriver driver) {
+                    WebElement button = driver.findElement(By.xpath("//div[@class='el-loading-mask']"));
+                    String enabled = button.getAttribute("style");
+                    if (enabled.equals("display: none;"))
+                        return true;
+                    else
+                        return false;
+                }
+            });
+        }
+
+        //Now get the Advisor/Teacher
         for (int i=0;i<advisorList.size();i++)
         {
             String advisorName = advisorList.get(i).findElement(By.xpath(".//div[@class=\"title\"]")).getText();

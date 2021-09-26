@@ -32,7 +32,8 @@ public class CreateLessonPage {
     @FindBy (xpath = "(//div[@class='el-dialog__wrapper eeo-el-dialog' and not(@style=\"display: none;\")])[3]/div/div[@class='el-dialog__footer']/div/div/button[@class='el-button el-button--primary el-button--mini']") WebElement btnDoneCloseCreateLessonDialog;
     @FindBy (xpath = "(//label[text()='Start Time']//../div/span/span)[1]/div/div/span") WebElement btnOpenDropDownStartTime;
     @FindBy (xpath = "//div[@class='text-right']") WebElement btnCloseTimePicker;
-    @FindBy (xpath = "(//*[@class='el-scrollbar__view el-select-dropdown__list'])[8]//li")
+
+    @FindBy (xpath = "(//*[@class='el-scrollbar__view el-select-dropdown__list'])[7]//li")
     List<WebElement> durationHourAndMinuteList;
     @FindBy (xpath = "//input[@placeholder='hour']") WebElement btnOpenDropDownDurationHour;
     @FindBy (xpath = "//input[@placeholder='minute']") WebElement btnOpenDropDownDurationMinute;
@@ -65,18 +66,24 @@ public class CreateLessonPage {
 //                System.out.println("Yes MASK is present >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 //            }
 //            else
-//            {
-//                try {
-//                    Thread.sleep(1000);
-//                }   catch (InterruptedException e) {
-//                    e.printStackTrace();
-//                }
-//            }
+            {
+                try {
+                    Thread.sleep(3000);
+                }   catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
 
-        WebDriverWait wait = new WebDriverWait(driver,155);
-        WebElement el = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[normalize-space(text()) = 'Create Lessons']")));
-        ((JavascriptExecutor)driver).executeScript("arguments[0].click()", el);
-        //btnCreateLessons.click();
+//        WebDriverWait wait = new WebDriverWait(driver,155);
+//        WebElement el = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[normalize-space(text()) = 'Create Lessons']")));
+//        ((JavascriptExecutor)driver).executeScript("arguments[0].click()", el);
+
+          //Click Create Lesson Button
+          btnCreateLessons.click();
+          //Identify how many dropdown is present on the site, the dropdown list of Duration Hour and Minute are the last list
+          int numberOfDropDownList = driver.findElements(By.xpath("(//*[@class='el-scrollbar__view el-select-dropdown__list'])")).size();
+          String xpathDurationHourAndMinute ="(//*[@class='el-scrollbar__view el-select-dropdown__list'])["+numberOfDropDownList+"]//li";
+          System.out.println("Number of the dropDown List: >>>>>>>>>> >>>> >>> >"+numberOfDropDownList);
 
             //Wait pop-up show successfully
             try {
@@ -97,9 +104,14 @@ public class CreateLessonPage {
             //Select Time: minute
             selectMinute(lessonMinute);
             //Select Duration Hour
-            selectDurationHour(durationHour);
+            selectDurationHour(durationHour,xpathDurationHourAndMinute);
             //Select Duration Minute
-            selectDurationMinute(durationMinute);
+            selectDurationMinute(durationMinute,xpathDurationHourAndMinute);
+//        try {
+//            Thread.sleep(50000);
+//        }   catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
             //Select week's Law
             selectWeekLaw(weekLaws);
             //Select Teacher
@@ -197,25 +209,28 @@ public class CreateLessonPage {
         btnCloseTimePicker.click();
         System.out.println("Selected Minute value \nClosed Time Picker...");
     }
-    public void selectDurationHour(String durationHourInput) {
+    public void selectDurationHour(String durationHourInput,String xpathDurationHourList) {
 
         WebElement elementName = driver.findElement(By.xpath("//input[@placeholder='hour']"));
         ((JavascriptExecutor) driver).executeScript("arguments[0].removeAttribute('readonly','readonly')", elementName);
         System.out.println("Removed Read Only attribute of Duration Hour successfully");
         btnOpenDropDownDurationHour.clear();
         btnOpenDropDownDurationHour.sendKeys(durationHourInput);
-        for (int i = 0; i < durationHourAndMinuteList.size(); i++) {
+
+
+        List<WebElement> listDurationHour = driver.findElements(By.xpath(xpathDurationHourList));
+        for (int i = 0; i < listDurationHour.size(); i++) {
             int j=i+1;
-            String durationHour = durationHourAndMinuteList.get(i).findElement(By.xpath("(//*[@class='el-scrollbar__view el-select-dropdown__list'])[8]//li["+j+"]")).getText();
+            String durationHour = listDurationHour.get(i).findElement(By.xpath(xpathDurationHourList+"["+j+"]")).getText();
             if (durationHour.trim().equalsIgnoreCase(durationHourInput)) {
                 System.out.println("Selected hour: " + durationHour);
-                durationHourAndMinuteList.get(i).click();
+                listDurationHour.get(i).click();
                 break;
             }
         }
         System.out.println("Selected Duration Hour value");
     }
-    public void selectDurationMinute(String durationHourInput) {
+    public void selectDurationMinute(String durationHourInput, String xpathDurationMinuteList) {
         WebElement elementName = driver.findElement(By.xpath("//input[@placeholder='minute']"));
         ((JavascriptExecutor) driver).executeScript("arguments[0].removeAttribute('readonly','readonly')", elementName);
         System.out.println("Removed Read Only attribute of Duration Minute successfully");
@@ -223,12 +238,15 @@ public class CreateLessonPage {
         System.out.println("Cleared default Duration Minute successfully");
         btnOpenDropDownDurationMinuteAfterClearDefaultValue.sendKeys(durationHourInput);
         System.out.println("Enter search value to Duration Minute successfully");
-        for (int i = 0; i < durationHourAndMinuteList.size(); i++) {
+
+
+        List<WebElement> listDurationMinute = driver.findElements(By.xpath(xpathDurationMinuteList));
+        for (int i = 0; i < listDurationMinute.size(); i++) {
             int j=i+1;
-            String durationMinute = durationHourAndMinuteList.get(i).findElement(By.xpath("(//*[@class='el-scrollbar__view el-select-dropdown__list'])[8]//li["+j+"]")).getText();
+            String durationMinute = listDurationMinute.get(i).findElement(By.xpath(xpathDurationMinuteList+"["+j+"]")).getText();
             if (durationMinute.trim().equalsIgnoreCase(durationHourInput)) {
                 System.out.println("Selected minute: " + durationMinute);
-                durationHourAndMinuteList.get(i).click();
+                listDurationMinute.get(i).click();
                 break;
             }
         }

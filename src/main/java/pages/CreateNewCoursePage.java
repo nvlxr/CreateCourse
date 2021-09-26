@@ -22,7 +22,7 @@ public class CreateNewCoursePage {
     //@FindBy (xpath = "(//div[@class='tagName'])[2]//../div[@class='checkboxBox']/div[@class='el-checkbox']") WebElement chkBoxProduction;
     @FindBy (xpath = "(//button[@class='el-button el-button--primary el-button--mini'])[4]") WebElement btnDoneSelectCourseTag;
     @FindBy (xpath = "(//*[contains(@class,'el-checkbox__inner')])[2]") WebElement chkBoxAllowClass;
-    @FindBy (xpath = "(//*[contains(@class,'el-input__inner')])[3]") WebElement txtCalendar;
+    @FindBy (xpath = "(//input[contains(@class,'el-input__inner')])[3]") WebElement txtCalendar;
     @FindBy (xpath = "//span[normalize-space(text()) = 'Create Immediately']") WebElement btnCreateCourse;
     @FindBy (xpath = "//div[@class='siteLoading']") WebElement mask;
     public CreateNewCoursePage(WebDriver driver) {
@@ -119,7 +119,7 @@ public class CreateNewCoursePage {
     }
     public void goToLessonPage()//this will be changed to click Create Course
     {
-        driver.navigate().to("https://console.classin.com/saas/school/index.html#/SinglePage/CourseManagement/CourseLessonManagement?courseId=179568067");
+        driver.navigate().to("https://console.classin.com/saas/school/index.html#/SinglePage/CourseManagement/CourseLessonManagement?courseId=180160741");
         System.out.println("Navigated to Lesson page");
         //Wait new page load successfully
 //        try {
