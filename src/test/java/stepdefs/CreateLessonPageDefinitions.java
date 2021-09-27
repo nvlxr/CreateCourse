@@ -8,7 +8,7 @@ public class CreateLessonPageDefinitions {
     public void i_create_lesson()
     {
         createLessonPage = new CreateLessonPage(getDriver());
-        createLessonPage.createLesson( "2022-10-30","pRoduction","1234567","2","23","55","2","20","tung");
+        createLessonPage.createLesson( "2022-10-30","pRoduction","1234567","2","23","55","2","20","tung","2022-10-30");
         System.out.println("Create lesson successfully");
     }
 }

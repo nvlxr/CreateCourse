@@ -1,4 +1,5 @@
 package pages;
+import org.apache.commons.lang3.ObjectUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -32,30 +33,35 @@ public class CreateNewCoursePage {
     }
     public boolean createNewCourse(String courseName, String courseDate, String courseTag, String advisorName)
     {
-        //try{
+        try{
             //Switch to new opened tab
             switchToNewTab();
             //Enter Course name
-            enterCourseName(courseName);
-            //Select Course Advisor
-            clickSelectAdvisorButton();//Open Select Advisor popup
-            waitUntilAdvisorPopUpReady();
-            selectAdvisorPage = new SelectAdvisorPage(getDriver());
-            selectAdvisorPage.selectAdvisorOrTeacher(advisorName);
-            //selectAdvisorPage.btnDoneCloseSelectCourseAdvisor.click();//Why duplicate this here?
+            if(!courseName.equals("")) {
+                enterCourseName(courseName);
+                //Select Course Advisor
+                clickSelectAdvisorButton();//Open Select Advisor popup
+                waitUntilAdvisorPopUpReady();
+                selectAdvisorPage = new SelectAdvisorPage(getDriver());
+                selectAdvisorPage.selectAdvisorOrTeacher(advisorName);
+                //selectAdvisorPage.btnDoneCloseSelectCourseAdvisor.click();//Why duplicate this here?
 
-            //Select Course Tag
-            selectCourseTag(courseTag);
-            //Enter Date
-            enterDateToCalendarBox(courseDate);
-            //Uncheck the "Allow class..." checkbox
-            uncheckAllowClassCheckbox();
-            //Click btnCreateCourse button to create course
-            //btnCreateCourse.click();
-            return true;
-        //}
-        //catch (Exception e)
-        //{return false;}
+                //Select Course Tag
+                selectCourseTag(courseTag);
+                //Enter Date
+                enterDateToCalendarBox(courseDate);
+                //Uncheck the "Allow class..." checkbox
+                uncheckAllowClassCheckbox();
+                //Click btnCreateCourse button to create course
+
+                btnCreateCourse.click();
+                return true;
+            }
+            else
+                return false;
+        }
+        catch (Exception e)
+        {return false;}
     }
 
     //Switch to new opened tab

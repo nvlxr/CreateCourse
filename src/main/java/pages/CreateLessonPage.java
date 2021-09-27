@@ -5,8 +5,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +28,7 @@ public class CreateLessonPage {
     @FindBy (xpath = "//*[@class='eeo-ul options minute eeo-scroll-bar']//li")
     List<WebElement> minuteList;
     @FindBy (xpath = "(//div[@class='el-dialog__wrapper eeo-el-dialog' and not(@style=\"display: none;\")])[3]/div/div[@class='el-dialog__footer']/div/div/button[@class='el-button el-button--primary el-button--mini']") WebElement btnDoneCloseCreateLessonDialog;
+    @FindBy (xpath = "(//div[@class='el-dialog__wrapper eeo-el-dialog' and not(@style=\"display: none;\")])[3]/div/div[@class='el-dialog__footer']/div/div/button[2]") WebElement btnCancelCreateLesson;
     @FindBy (xpath = "(//label[text()='Start Time']//../div/span/span)[1]/div/div/span") WebElement btnOpenDropDownStartTime;
     @FindBy (xpath = "//div[@class='text-right']") WebElement btnCloseTimePicker;
 
@@ -51,11 +50,16 @@ public class CreateLessonPage {
     @FindBy (xpath = "//*[contains(text(),\"Week's Law\")]//../div/div/label[7]") WebElement btnSaturday;
     //@FindBy (xpath = "//div[@class='el-loading-mask']") WebElement mask;
     @FindBy (xpath = "//div[@class='el-loading-spinner']") WebElement mask;
+    @FindBy (xpath = "//div[@class='eeo_pageContentTabBar']/div[@class='rightPart']/div/button/span[normalize-space(text()) = 'Course settings']") WebElement btnCourseSettings;
+    @FindBy (xpath = "//*[contains(text(),\"Course Valid Period:\")]//../div/div/input")WebElement txtCourseStartDate;
+    @FindBy (xpath = "//*[contains(text(),\"Course Valid Period:\")]")WebElement clickHereToCloseCourseSettingsCalendarBox;
+    @FindBy (xpath = "//span[contains(text(),\"Allow class members to add friends to each other\")]") WebElement chkBoxAllowClass;
+    @FindBy (xpath = "//span[contains(text(),\"Save to take effect\")]//../div/button[1]") WebElement btnDoneCourseSettings;
 
-    public boolean createLesson(String startDate,String lessonTag, String weekLaws, String lessonNumber, String lessonHour,String lessonMinute, String durationHour, String durationMinute, String teacherName)
+    public boolean createLesson(String startDate,String lessonTag, String weekLaws, String lessonNumber, String lessonHour,String lessonMinute, String durationHour, String durationMinute, String teacherName,String courseStartDate)
     {
-//        try
-//        {
+        try
+        {
 //            try {
 //                Thread.sleep(3000);
 //            } catch (InterruptedException e) {
@@ -119,13 +123,16 @@ public class CreateLessonPage {
             //Select Lesson Tag
             selectLessonTag(lessonTag);
             // Close create lesson dialog
-            //btnDoneCloseCreateLessonDialog.click();//now not click because of create real data on PROD
+            //btnDoneCloseCreateLessonDialog.click();//now not click because of create real data on PROD so we click Cancel to close the pop-up
+            btnCancelCreateLesson.click();
+            //ReEnter Course Start Date
+            reEnterCourseStartDate(courseStartDate);
             //Close current tab and back to Create Course button tab
             switchToFirstTab();
             return true;
-//        }
-//        catch (Exception e)
-//        {return false;}
+        }
+        catch (Exception e)
+        {return false;}
     }
     public void uncheckCheckedDate() {
 
@@ -313,6 +320,37 @@ public class CreateLessonPage {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
+    }
+    //Re Enter Course Start Date to correct it changed while entering the date in the lessons
+    public void reEnterCourseStartDate(String date) {
+        waitUntilElementClickable.waitUntilElementClickable(btnCourseSettings,mask);
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        btnCourseSettings.click();
+        //Wait to pop-up show successfully
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        //continue
+        //Remove readonly attribute of Date box
+        WebElement elementName = driver.findElement(By.xpath("//*[contains(text(),\"Course Valid Period:\")]//../div/div/input"));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].removeAttribute('readonly','readonly')", elementName);
+        System.out.println("Removed Read Only attribute of Course Settings Calendar box successfully");
+        //Enter Date
+        txtCourseStartDate.clear();
+        txtCourseStartDate.sendKeys(date);
+        clickHereToCloseCourseSettingsCalendarBox.click();
+        System.out.println("Enter date to Course Settings Calendar box successfully");
+        //Uncheck the checkbox
+        chkBoxAllowClass.click();
+        //Click Done button
+        btnDoneCourseSettings.click();
 
     }
     public void switchToFirstTab()

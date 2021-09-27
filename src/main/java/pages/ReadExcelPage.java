@@ -38,26 +38,26 @@ public class ReadExcelPage {
                 continue;
             }
             //Get Data
-            String courseName = csvCell[0];
-            String courseAdvisor = csvCell[1];
-            String courseTag = csvCell[2];
-            String courseDate = csvCell[3];
-            String lessonNumber = csvCell[4];
-            String lessonStartDate = csvCell[5];
+            String courseName = csvCell[0].trim();
+            String courseAdvisor = csvCell[1].trim();
+            String courseTag = csvCell[2].trim();
+            String courseDate = csvCell[3].trim();
+            String lessonNumber = csvCell[4].trim();
+            String lessonStartDate = csvCell[5].trim();
             //Get hour and minute of Lesson Start Time
-            String lessonStartTime = csvCell[6];
+            String lessonStartTime = csvCell[6].trim();
             String[] lessonStartTimeParts=lessonStartTime.split("\\:");
             String lessonStartTimeHour = lessonStartTimeParts[0];
             String lessonStartTimeMinute = lessonStartTimeParts[1];
             //Get hour and minute of Lesson Duration
-            String lessonDuration = csvCell[7];
+            String lessonDuration = csvCell[7].trim();
             String[] lessonDurationParts=lessonDuration.split("\\:");
             String lessonDurationHour = lessonDurationParts[0];
             String lessonDurationMinute = lessonDurationParts[1];
             //
-            String lessonWeeksLaw = csvCell[8];
-            String lessonTeacher = csvCell[9];
-            String lessonTag = csvCell[10];
+            String lessonWeeksLaw = csvCell[8].trim();
+            String lessonTeacher = csvCell[9].trim();
+            String lessonTag = csvCell[10].trim();
             // Create new course
             coursesPage.clickCreateCourse();
             if(createNewCoursePage.createNewCourse(courseName,courseDate,courseTag,courseAdvisor)==false)
@@ -71,9 +71,9 @@ public class ReadExcelPage {
             }
             else
                 System.out.println("Created course at row: "+printOutLine+"\n");
-            createNewCoursePage.goToLessonPage();
+            ////////////////////createNewCoursePage.goToLessonPage(); => Turn this on to test lesson with no create course
             //Create new lesson
-            if(createLessonPage.createLesson(lessonStartDate,lessonTag,lessonWeeksLaw,lessonNumber,lessonStartTimeHour,lessonStartTimeMinute,lessonDurationHour,lessonDurationMinute,lessonTeacher)==false)
+            if(createLessonPage.createLesson(lessonStartDate,lessonTag,lessonWeeksLaw,lessonNumber,lessonStartTimeHour,lessonStartTimeMinute,lessonDurationHour,lessonDurationMinute,lessonTeacher,courseDate)==false)
             {
                 System.out.println("Failed to create the lesson/course at row: "+printOutLine+"\n");
                 failedRow=failedRow+printOutLine+", ";
